@@ -123,8 +123,11 @@ def get_search():
 def get_repositories():
     repos = store.repositories
     return toolkit.response(repos, 200)
-    # for namespace_path in store.list_directory(store.repositories):
-    # for repos_path in store.list_directory(namespace_path):
-    #     for tag in store.list_directory(repos_path):
+    tags = []
+    for namespace_path in store.list_directory(store.repositories):
+        for repos_path in store.list_directory(namespace_path):
+            for tag in store.list_directory(repos_path):
+                tags.append(tag)
+    return toolkit.response(tags, 200)
 
 

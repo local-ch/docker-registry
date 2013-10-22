@@ -121,11 +121,8 @@ def get_search():
 
 @app.route('/v1/repositories', methods=['GET'])
 def get_repositories():
-    tags = []
-    for namespace_path in store.list_directory(store.images):
-        for repos_path in store.list_directory(namespace_path):
-            for tag in store.list_directory(repos_path):
-                tags.append(tag)
-    return toolkit.response(tags, 200)
-
-
+    repositories = {'repositories': []}
+    for library in store.list_directory(store.repositories):
+	for repository in store.list_directory(library):
+	    repositories['repositories'].append(repository.rsplit('/')[-1])
+    return toolkit.response(repositories, 200)

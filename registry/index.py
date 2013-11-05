@@ -120,6 +120,7 @@ def get_search():
     return toolkit.response({})
 
 @app.route('/v1/repositories', methods=['GET'])
+@crossdomain(origin='*')
 def get_repositories():
     repositories = {'repositories': []}
     for library in store.list_directory(store.repositories):

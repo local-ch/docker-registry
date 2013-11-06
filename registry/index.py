@@ -86,7 +86,8 @@ def put_repository(namespace, repository, images=False):
     return toolkit.response('', code, headers)
 
 
-@app.route('/v1/repositories/<path:repository>/images', methods=['GET'])
+@app.route('/v1/repositories/<path:repository>/images', methods=['GET', 'OPTIONS'])
+@toolkit.crossdomain(origin='*')
 @toolkit.parse_repository_name
 @toolkit.requires_auth
 def get_repository_images(namespace, repository):
@@ -119,7 +120,7 @@ def put_repository_auth(namespace, repository):
 def get_search():
     return toolkit.response({})
 
-@app.route('/v1/repositories', methods=['GET'])
+@app.route('/v1/repositories', methods=['GET', 'OPTIONS'])
 @toolkit.crossdomain(origin='*')
 def get_repositories():
     repositories = {'repositories': []}

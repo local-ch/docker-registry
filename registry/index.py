@@ -87,7 +87,7 @@ def put_repository(namespace, repository, images=False):
 
 
 @app.route('/v1/repositories/<path:repository>/images', methods=['GET', 'OPTIONS'])
-@toolkit.crossdomain(origin='*')
+@toolkit.crossdomain(origin='*', methods=['GET', 'POST', 'OPTIONS'], headers=['X-Requested-With', 'Content-Type', 'Origin'])
 @toolkit.parse_repository_name
 @toolkit.requires_auth
 def get_repository_images(namespace, repository):
@@ -121,7 +121,7 @@ def get_search():
     return toolkit.response({})
 
 @app.route('/v1/repositories', methods=['GET', 'OPTIONS'])
-@toolkit.crossdomain(origin='*')
+@toolkit.crossdomain(origin='*', methods=['GET', 'POST', 'OPTIONS'], headers=['X-Requested-With', 'Content-Type', 'Origin'])
 def get_repositories():
     repositories = {'repositories': []}
     for library in store.list_directory(store.repositories):
